@@ -7,7 +7,7 @@ export const useScenes = () => {
     try {
       scenesDataIsLoading.value = true;
 
-      const data = await $fetch(config.public.SCENES_BASE_URL);
+      const data = await $fetch(config.public.SCENES_URL);
 
       if (data.length) {
         const formattedData = JSON.parse(data);

@@ -9,8 +9,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      PRODUCTS_BASE_URL: process.env.PRODUCTS_BASE_URL || '/api/products',
-      SCENES_BASE_URL: process.env.SCENES_BASE_URL || '/api/scenes'
+      PRODUCTS_URL: process.env.PRODUCTS_URL || '/api/products',
+      SCENES_URL: process.env.SCENES_URL || '/api/scenes'
     }
   },
   ssr: false,

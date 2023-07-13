@@ -12,7 +12,7 @@ export const useProducts = () => {
     try {
       productsDataIsLoading.value = true;
 
-      const data = await $fetch(config.public.PRODUCTS_BASE_URL);
+      const data = await $fetch(config.public.PRODUCTS_URL);
 
       if (data) {
         productsData.value = data;

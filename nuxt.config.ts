@@ -7,6 +7,12 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', href: '/sunglasses.ico' }]
     }
   },
+  runtimeConfig: {
+    public: {
+      PRODUCTS_BASE_URL: process.env.PRODUCTS_BASE_URL || '/api/products',
+      SCENES_BASE_URL: process.env.SCENES_BASE_URL || '/api/scenes'
+    }
+  },
   ssr: false,
   modules: [
     '@nuxtjs/eslint-module',

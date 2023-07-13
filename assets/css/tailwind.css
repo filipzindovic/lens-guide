@@ -3,5 +3,15 @@
 @tailwind utilities;
 
 @layer components {
+  .h-w-full {
+    @apply w-full h-full;
+  }
 
+  .flex-center-hv {
+    @apply flex items-center justify-center
+  }
+
+  .absolute-top-left-0 {
+    @apply absolute top-0 left-0
+  }
 }

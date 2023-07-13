@@ -1,6 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   // devtools: { enabled: true },
+  app: {
+    head: {
+      title: 'Lens Guide',
+      link: [{ rel: 'icon', href: '/sunglasses.ico' }]
+    }
+  },
   ssr: false,
   modules: [
     '@nuxtjs/eslint-module',

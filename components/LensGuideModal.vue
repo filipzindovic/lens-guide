@@ -14,6 +14,16 @@ const lensData = computed(() => {
 });
 const selectedLens = ref(lensData?.value?.[0]?.sku);
 const selectedScene = ref(0);
+const rangeValues = {
+  min: 0,
+  max: 100,
+  allowedMin: 5,
+  allowedMax: 95,
+  default: 50,
+  iconWidth: 56
+};
+const rangeValue = ref(rangeValues.default);
+const isGrabbing = ref(false);
 
 const nakedEyeImage = computed(() => {
   return scenesData?.value?.[selectedScene.value]?.nakedEyeImage;
@@ -33,6 +43,22 @@ const mappedScenesData = computed(() => {
     };
   });
 });
+
+function handleRangeChange($event) {
+  const value = $event?.target?.valueAsNumber ?? 0;
+
+  if (value > rangeValues.allowedMax) {
+    rangeValue.value = rangeValues.allowedMax;
+    return rangeValues.allowedMax;
+  }
+
+  if (value < rangeValues.allowedMin) {
+    rangeValue.value = rangeValues.allowedMin;
+    return rangeValues.allowedMin;
+  }
+
+  rangeValue.value = value;
+}
 </script>
 
 <template>
@@ -54,9 +80,28 @@ const mappedScenesData = computed(() => {
             :focal-point="lensSceneImage?.focalPoint"
             :style="{
               position: 'absolute',
-              top: 0
+              top: 0,
+              clipPath: `polygon(${rangeValue}% 0px, 100% 0px, 100% 100%, ${rangeValue}% 100%)`
             }"
           />
+          <div class="LensGuideModal__range h-w-full">
+            <div class="LensGuideModal__range-icon" :style="{left: `calc(${rangeValue}% - ${rangeValues.iconWidth / 2}px)`}">
+              <IconsGrab />
+            </div>
+            <input
+              :class="[
+                'LensGuideModal__range-input',
+                isGrabbing && 'LensGuideModal__range-input--grabbing'
+              ]"
+              type="range"
+              :value="rangeValue"
+              :min="rangeValues.min"
+              :max="rangeValues.max"
+              @mousedown="isGrabbing = true"
+              @mouseup="isGrabbing = false"
+              @input="handleRangeChange"
+            >
+          </div>
         </div>
         <div class="LensGuideModal__footer flex-center-hv">
           <ActionsWrapper class="min-h-45" text="SCENE" is-opened>
@@ -85,6 +130,7 @@ const mappedScenesData = computed(() => {
 </template>
 
 <style lang="scss" scoped>
+$icon-width: 56px;
 
 .LensGuideModal {
   &__container {
@@ -108,6 +154,33 @@ const mappedScenesData = computed(() => {
     @media screen and (max-width: $md-breakpoint) {
       flex: 1 1 50%;
       height: 50%
+    }
+  }
+
+  &__range {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    &-input {
+      width: inherit;
+      height: inherit;
+      cursor: grab;
+      opacity: 0;
+
+      &--grabbing {
+        cursor: grabbing;
+      }
+    }
+
+    &-icon {
+      padding: 1rem;
+      border-radius: 50%;
+      background-color: rgba(white, 0.5);
+      width: $icon-width;
+      height: $icon-width;
+      position: absolute;
+      top: calc(50% - ($icon-width / 2));
     }
   }
 

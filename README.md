@@ -1,33 +1,19 @@
-# Nuxt 3 Minimal Starter
+# Lens Guide
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Project Setup
 
-## Setup
-
-Make sure to install the dependencies:
+Install the node packages required and create a .env file (A .env.example file has been provided as guidance).
 
 ```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
 # yarn
 yarn install
 ```
 
 ## Development Server
 
-Start the development server on `http://localhost:3000`:
+Once the correct .env file is in place, you can run the application on `http://localhost:3000`:
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
 # yarn
 yarn dev
 ```
@@ -37,12 +23,6 @@ yarn dev
 Build the application for production:
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
 # yarn
 yarn build
 ```
@@ -50,14 +30,6 @@ yarn build
 Locally preview production build:
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
 # yarn
 yarn preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

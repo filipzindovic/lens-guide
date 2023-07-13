@@ -1,6 +1,6 @@
-import * as dummyData from '@/dummyData.json';
+import * as mockProductsData from '@/mock_products_data.json';
 
-// const config = useRuntimeConfig();
+const config = useRuntimeConfig();
 
 export const useProducts = () => {
   const productsData = useState('productsData', () => ({}));
@@ -9,8 +9,7 @@ export const useProducts = () => {
     try {
       productsDataIsLoading.value = true;
 
-      // const data = await $fetch(config.public.PRODUCTS_BASE_URL);
-      const data = dummyData.default;
+      const data = await $fetch(config.public.PRODUCTS_BASE_URL);
 
       if (data) {
         productsData.value = data;
@@ -18,6 +17,8 @@ export const useProducts = () => {
 
       productsDataIsLoading.value = false;
     } catch (error) {
+      // CORS issues with api.. fallback to dummy data
+      productsData.value = mockProductsData.default;
       productsDataIsLoading.value = false;
       console.error(error);
     }

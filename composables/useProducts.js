@@ -1,6 +1,8 @@
 import * as mockProductsData from '@/mock_products_data.json';
 
 const config = useRuntimeConfig();
+const { lensesInAllScenes } = useScenes();
+const { PRODUCT_CONSTANTS } = useConstants();
 
 export const useProducts = () => {
   const productsData = useState('productsData', () => ({}));
@@ -24,8 +26,16 @@ export const useProducts = () => {
     }
   };
 
+  const availableLensesForScenes = computed(() => {
+    const parts = productsData?.value?.renegades?.parts ?? [];
+    const lenses = parts?.find(part => part?.skuPrefix === PRODUCT_CONSTANTS.lenses)?.options;
+
+    return lenses?.filter(product => lensesInAllScenes.value.includes(product?.sku));
+  });
+
   return {
     fetchProductsData,
+    availableLensesForScenes,
     productsDataIsLoading,
     productsData
   };

@@ -21,8 +21,15 @@ export const useScenes = () => {
     }
   };
 
+  const lensesInAllScenes = computed(() => {
+    const allSceneImages = scenesData?.value.map(item => Object.keys(item?.sceneImages)) ?? [];
+
+    return allSceneImages?.length ? allSceneImages.reduce((a, b) => a.filter(c => b.includes(c))) : [];
+  });
+
   return {
     fetchScenesData,
+    lensesInAllScenes,
     scenesDataIsLoading,
     scenesData
   };

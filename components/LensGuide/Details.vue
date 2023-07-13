@@ -20,7 +20,6 @@ const lensChoiceData = computed(() => {
 
 const selectedLensColour = useState('selectedLensColour', '');
 const selectedLensType = useState('selectedLensType', '');
-const selectedLens = useState('selectedLens', '');
 
 const mappedUniqueTechList = computed(() => {
   return uniqueTechList?.value?.map(item => ({
@@ -36,13 +35,10 @@ const mappedUniqueSwatchList = computed(() => {
     styles: item?.styles
   }));
 });
-
-defineEmits(['tech']);
 </script>
 
 <template>
   <div class="LensGuideDetails">
-    {{ selectedLens }}
     <RadioGroup
       v-model="selectedLensChoice"
       class="LensGuideModal__group LensGuideModal__group--lens-toggle"

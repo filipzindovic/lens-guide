@@ -3,6 +3,7 @@ import * as mockProductsData from '@/mock_products_data.json';
 const config = useRuntimeConfig();
 const { lensesInAllScenes } = useScenes();
 const { PRODUCT_CONSTANTS } = useConstants();
+const { filterListByNamedValue } = useHelpers();
 
 export const useProducts = () => {
   const productsData = useState('productsData', () => ({}));
@@ -33,8 +34,22 @@ export const useProducts = () => {
     return lenses?.filter(product => lensesInAllScenes.value.includes(product?.sku));
   });
 
+  const uniqueTechList = computed(() => {
+    const techList = availableLensesForScenes?.value?.map(item => item?.optionTech);
+
+    return filterListByNamedValue(techList, 'tech');
+  });
+
+  const uniqueSwatchList = computed(() => {
+    const swatchList = availableLensesForScenes?.value?.map(item => item?.swatchStyle);
+
+    return filterListByNamedValue(swatchList, 'id');
+  });
+
   return {
     fetchProductsData,
+    uniqueTechList,
+    uniqueSwatchList,
     availableLensesForScenes,
     productsDataIsLoading,
     productsData

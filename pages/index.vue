@@ -4,9 +4,9 @@ const displayModal = ref(false);
 
 <template>
   <div>
-    <button class="mt-2 ml-2 px-4 py-2 font-semibold bg-cyan-500 text-white rounded-full shadow-sm" @click="displayModal = true">
-      Show Lens guide
-    </button>
+    <BaseButton class="mt-2 ml-2 py-2 px-2" type="primary" @click="displayModal = true">
+      Show Lens Guide
+    </BaseButton>
     <LensGuideModal v-if="displayModal" @close="displayModal = false" />
   </div>
 </template>

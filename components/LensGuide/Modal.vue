@@ -5,13 +5,8 @@ const { fetchProductsData, productsDataIsLoading, productsData, availableLensesF
 if (!scenesData?.value?.length) { fetchScenesData(); }
 if (!productsData?.value?.renegades) { fetchProductsData(); }
 
-watch(() => availableLensesForScenes?.value, (value) => {
-  if (value?.length) {
-    selectedLens.value = availableLensesForScenes?.value?.[0]?.sku;
-  }
-});
-
-const selectedLens = useState('selectedLens', '');
+const selectedLensColour = useState('selectedLensColour', '');
+const selectedLensType = useState('selectedLensType', '');
 const selectedScene = useState('selectedScene', () => 0);
 const rangeValues = {
   min: 0,
@@ -58,6 +53,21 @@ function handleRangeChange($event) {
 
   rangeValue.value = value;
 }
+
+const selectedLens = computed(() => {
+  const matchedLens = availableLensesForScenes?.value?.find(lens =>
+    lens?.swatchStyle?.id === selectedLensColour.value && lens?.optionTech?.tech === selectedLensType.value
+  );
+
+  return matchedLens?.sku;
+});
+
+watch(() => availableLensesForScenes?.value, (value) => {
+  if (value?.length) {
+    selectedLensColour.value = availableLensesForScenes?.value?.[0]?.swatchStyle?.id;
+    selectedLensType.value = availableLensesForScenes?.value?.[0]?.optionTech?.tech;
+  }
+});
 </script>
 
 <template>
@@ -65,11 +75,7 @@ function handleRangeChange($event) {
     <BaseLoader v-if="scenesDataIsLoading || productsDataIsLoading" />
     <div v-else class="LensGuideModal__container h-full flex-center-hv">
       <div class="h-w-full LensGuideModal__section LensGuideModal__section--products">
-        <select id="products" v-model="selectedLens">
-          <option v-for="lens in availableLensesForScenes" :key="lens?.id" :value="lens?.sku">
-            {{ lens?.name }}
-          </option>
-        </select>
+        <LensGuideDetails />
       </div>
       <div class="LensGuideModal__section LensGuideModal__section--lens-images h-w-full">
         <div class="h-w-full overflow-hidden">

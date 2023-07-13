@@ -22,8 +22,8 @@ function handleSelection(value) {
 </script>
 
 <template>
-  <ul class="RadioGroup">
-    <li v-for="item in list" :key="item?.id">
+  <div class="RadioGroup">
+    <label v-for="item in list" :key="item?.id" class="RadioGroup__label" :for="item?.id">
       <input
         :id="item?.id"
         class="RadioGroup__input"
@@ -32,16 +32,14 @@ function handleSelection(value) {
         :value="item?.value"
         @change="handleSelection(item?.value)"
       >
-      <label class="cursor-pointer" :for="item?.id">
-        <slot
-          :name="`radio(${item?.id})`"
-          :selected="item?.value === modelValue"
-          :value="item?.value"
-          :item="item"
-        />
-      </label>
-    </li>
-  </ul>
+      <slot
+        :name="`radio(${item?.id})`"
+        :selected="item?.value === modelValue"
+        :value="item?.value"
+        :item="item"
+      />
+    </label>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -51,6 +49,14 @@ function handleSelection(value) {
     width: 0;
     height: 0;
     position: absolute;
+  }
+
+  &__label {
+    cursor: pointer;
+
+    :deep(button) {
+      pointer-events: none;
+    }
   }
 }
 </style>

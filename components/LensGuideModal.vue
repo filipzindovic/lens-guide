@@ -13,6 +13,14 @@ const lensData = computed(() => {
   return lenses?.options ?? [];
 });
 const selectedLens = ref(lensData?.value?.[0]?.sku);
+
+const nakedEyeImage = computed(() => {
+  return scenesData?.value?.[0]?.nakedEyeImage;
+});
+
+const lensSceneImage = computed(() => {
+  return scenesData?.value?.[0]?.sceneImages?.[selectedLens?.value]?.image;
+});
 </script>
 
 <template>
@@ -26,7 +34,19 @@ const selectedLens = ref(lensData?.value?.[0]?.sku);
           </option>
         </select>
       </div>
-      <div class="LensGuideModal__section LensGuideModal__section--lens-images h-w-full"></div>
+      <div class="LensGuideModal__section LensGuideModal__section--lens-images h-w-full">
+        <div class="h-w-full overflow-hidden">
+          <BasePicture :image="nakedEyeImage?.responsiveImage" :focal-point="nakedEyeImage?.focalPoint" />
+          <BasePicture
+            :image="lensSceneImage?.responsiveImage"
+            :focal-point="lensSceneImage?.focalPoint"
+            :style="{
+              position: 'absolute',
+              top: 0
+            }"
+          />
+        </div>
+      </div>
     </div>
   </BaseModal>
 </template>

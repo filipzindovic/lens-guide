@@ -1,0 +1,23 @@
+{
+  "extends": ["eslint:recommended", "plugin:nuxt/recommended", "plugin:vue/vue3-recommended", "@nuxtjs"],
+  "plugins": ["nuxt"],
+  "rules": {
+    // enable additional rules
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "no-undef": "off",
+    "vue/multi-word-component-names": "off",
+    "vue/no-multiple-template-root": "off",
+    "space-before-function-paren": "off",
+    "no-console": "off",
+
+    // override configuration set by extending "eslint:recommended"
+    "no-empty": "warn",
+    "no-cond-assign": ["error", "always"],
+
+    // disable rules from base configurations
+    "for-direction": "off"
+  }
+}
